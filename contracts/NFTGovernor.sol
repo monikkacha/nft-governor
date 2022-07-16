@@ -9,11 +9,12 @@ import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFractio
 import "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
 
 contract NFTGovernor is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction, GovernorTimelockControl {
-    constructor(IVotes _token, TimelockController _timelock)
+
+    constructor(IVotes _token, TimelockController _timelock ,uint256 _quoramFraction , uint256 _votingDelay , uint256 _votingPeriod)
         Governor("NFTGovernor")
-        GovernorSettings(1 /* 1 block */, 45818 /* 1 week */, 0)
+        GovernorSettings(_votingDelay, _votingPeriod, 0)
         GovernorVotes(_token)
-        GovernorVotesQuorumFraction(4)
+        GovernorVotesQuorumFraction(_quoramFraction)
         GovernorTimelockControl(_timelock)
     {}
 
